@@ -19,6 +19,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private Role role;
