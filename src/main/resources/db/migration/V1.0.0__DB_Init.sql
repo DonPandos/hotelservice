@@ -1,10 +1,12 @@
 CREATE TABLE users
 (
-    id       SERIAL  NOT NULL PRIMARY KEY,
-    username VARCHAR NOT NULL,
-    password VARCHAR NOT NULL,
-    status   VARCHAR NOT NULL,
-    role_id  INTEGER NOT NULL
+    id        SERIAL  NOT NULL PRIMARY KEY,
+    username  VARCHAR NOT NULL,
+    password  VARCHAR NOT NULL,
+    firstname VARCHAR NOT NULL,
+    lastname  VARCHAR NOT NULL,
+    status    VARCHAR NOT NULL,
+    role_id   INTEGER NOT NULL
 );
 
 CREATE TABLE roles
@@ -40,4 +42,31 @@ CREATE TABLE cities
     city       VARCHAR NOT NULL,
     country_id INTEGER NOT NULL,
     FOREIGN KEY (country_id) REFERENCES countries (id)
-)
+);
+
+CREATE TABLE facilities
+(
+    id       SERIAL  NOT NULL PRIMARY KEY,
+    facility VARCHAR NOT NULL
+);
+
+CREATE TABLE hotels
+(
+    id            SERIAL  NOT NULL PRIMARY KEY,
+    name          VARCHAR NOT NULL,
+    adress        VARCHAR,
+    description   TEXT,
+    image_name    VARCHAR,
+    rating        INTEGER,
+    city_id       INTEGER NOT NULL,
+    FOREIGN KEY (city_id) REFERENCES cities (id)
+);
+
+CREATE TABLE hotels_facility
+(
+    id SERIAL NOT NULL PRIMARY KEY,
+    hotel_id INTEGER NOT NULL,
+    facility_id INTEGER NOT NULL,
+    FOREIGN KEY (hotel_id) REFERENCES hotels (id),
+    FOREIGN KEY (facility_id) REFERENCES facilities (id)
+);

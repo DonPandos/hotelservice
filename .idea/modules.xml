@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/security-jwt-template.iml" filepath="$PROJECT_DIR$/security-jwt-template.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hotelservice.iml" filepath="$PROJECT_DIR$/.idea/hotelservice.iml" />
     </modules>
   </component>
 </project>
