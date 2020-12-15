@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring</groupId>
-	<artifactId>security-jwt-template</artifactId>
+	<artifactId>hotelservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringSecurityJwtAuthTemplate</name>
-	<description>Template for Spring REST API with JWT auth</description>
+	<name>Hotel service</name>
+	<description>Hotel service</description>
 
 	<properties>
 		<java.version>15</java.version>
