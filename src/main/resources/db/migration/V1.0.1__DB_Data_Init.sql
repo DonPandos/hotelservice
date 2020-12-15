@@ -2,6 +2,15 @@ INSERT INTO roles(id, role)
 VALUES (1, 'ROLE_ADMIN'),
        (2, 'ROLE_USER');
 
+INSERT INTO permissions(id, permission)
+VALUES (1, 'READ:HOTELS'),
+       (2, 'WRITE:HOTELS');
+
+INSERT INTO role_permissions (role_id, permission_id)
+VALUES (2, 1), -- USER - READ:HOTELS
+       (1, 1), -- ADMIN - READ:HOTELS
+       (1, 2); -- ADMIN - WRITE:HOTELS
+
 INSERT INTO users(username,
                   password,
                   firstname,

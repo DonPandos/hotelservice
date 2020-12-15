@@ -26,7 +26,7 @@ public class Hotel extends BaseEntity{
     @Column(name = "rating")
     private Integer rating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 

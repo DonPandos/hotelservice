@@ -49,7 +49,7 @@ public class AuthController {
             response.put("token", token);
             return ResponseEntity.ok(response);
 
-        } catch(AuthenticationException e) {
+        } catch (AuthenticationException e) {
             e.printStackTrace();
             return new ResponseEntity("Invalid email/password combination", HttpStatus.FORBIDDEN);
         }

@@ -1,5 +1,6 @@
 package com.spring.hotelservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ public class City extends BaseEntity {
     @Column(name = "city")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
 }
