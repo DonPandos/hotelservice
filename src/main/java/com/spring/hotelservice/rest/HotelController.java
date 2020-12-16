@@ -3,9 +3,7 @@ package com.spring.hotelservice.rest;
 import com.spring.hotelservice.service.HotelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/hotels")
@@ -21,5 +19,11 @@ public class HotelController {
     @PreAuthorize("hasAuthority('READ:HOTELS')")
     public ResponseEntity getAll() {
         return ResponseEntity.ok(hotelService.getAll());
+    }
+
+    @PostMapping("/bycity/{cityId}")
+    @PreAuthorize("hasAuthority('READ:HOTELS')")
+    public ResponseEntity getHotelsByCity(@PathVariable Integer cityId) {
+        return ResponseEntity.ok(hotelService.getAllByCity(cityId));
     }
 }
