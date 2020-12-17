@@ -1,9 +1,16 @@
 package com.spring.hotelservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.Set;
 
 @Data
@@ -21,6 +28,7 @@ public class Hotel extends BaseEntity{
     private String description;
 
     @Column(name = "image_name")
+    @JsonIgnore
     private String imageName;
 
     @Column(name = "rating")
@@ -35,4 +43,14 @@ public class Hotel extends BaseEntity{
             joinColumns = @JoinColumn(name = "facility_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "hotel_id", referencedColumnName = "id"))
     private Set<Facility> facilities;
+
+    @JsonIgnore
+    @Transient
+    private byte[] image;
+
+    @PostLoad
+    public void imageInitialization() throws IOException {
+        File file = new File("src/main/java/com/spring/hotelservice/files/hotelimages/" + imageName);
+        image = Base64.getEncoder().encode(FileUtils.readFileToByteArray(file));
+    }
 }

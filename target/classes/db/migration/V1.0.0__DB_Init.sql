@@ -68,5 +68,6 @@ CREATE TABLE hotels_facility
     hotel_id INTEGER NOT NULL,
     facility_id INTEGER NOT NULL,
     FOREIGN KEY (hotel_id) REFERENCES hotels (id),
-    FOREIGN KEY (facility_id) REFERENCES facilities (id)
+    FOREIGN KEY (facility_id) REFERENCES facilities (id),
+    UNIQUE (hotel_id, facility_id)
 );

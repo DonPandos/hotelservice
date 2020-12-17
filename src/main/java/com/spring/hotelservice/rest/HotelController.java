@@ -16,14 +16,18 @@ public class HotelController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ:HOTELS')")
     public ResponseEntity getAll() {
         return ResponseEntity.ok(hotelService.getAll());
     }
 
-    @PostMapping("/bycity/{cityId}")
+    @GetMapping("/city/{cityId}")
     @PreAuthorize("hasAuthority('READ:HOTELS')")
     public ResponseEntity getHotelsByCity(@PathVariable Integer cityId) {
         return ResponseEntity.ok(hotelService.getAllByCity(cityId));
+    }
+
+    @GetMapping("/country/{countryId}")
+    public ResponseEntity getHotelsByCountry(@PathVariable Integer countryId) {
+        return ResponseEntity.ok(hotelService.getAllByCountry(countryId));
     }
 }

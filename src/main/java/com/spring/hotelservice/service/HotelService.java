@@ -22,6 +22,15 @@ public class HotelService {
     }
 
     public List<Hotel> getAllByCity(Integer cityId) {
-        return hotelRepository.findAllByCity(cityRepository.findById(cityId).get().getName());
+        return hotelRepository.findAllByCity(cityRepository.findById(cityId).get());
+    }
+
+    public List<Hotel> getAllByCountry(Integer countryId) {
+        return hotelRepository.findAllByCountry(countryId);
+    }
+
+    public List<Hotel> getAllByFacilities(Integer ...facilityId) {
+
+        return null;
     }
 }
