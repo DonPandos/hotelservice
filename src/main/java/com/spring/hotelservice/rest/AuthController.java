@@ -4,6 +4,7 @@ import com.spring.hotelservice.dto.auth.AuthenticationRequestDTO;
 import com.spring.hotelservice.model.User;
 import com.spring.hotelservice.repository.UserRepository;
 import com.spring.hotelservice.security.jwt.JwtTokenProvider;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,11 +48,12 @@ public class AuthController {
             Map<Object, Object> response = new HashMap<>();
             response.put("username", user.getUsername());
             response.put("token", token);
-            return ResponseEntity.ok(response);
+
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, "cook").body(response);
 
         } catch (AuthenticationException e) {
-            e.printStackTrace();
-            return new ResponseEntity("Invalid email/password combination", HttpStatus.FORBIDDEN);
+            Map<Object, Object> response = new HashMap<>();
+            return new ResponseEntity(response, HttpStatus.FORBIDDEN);
         }
     }
 

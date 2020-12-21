@@ -1,7 +1,6 @@
 package com.spring.hotelservice.repository;
 
 import com.spring.hotelservice.model.City;
-import com.spring.hotelservice.model.Country;
 import com.spring.hotelservice.model.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
