@@ -21,7 +21,7 @@ public class HotelController {
     }
 
     @GetMapping("/city/{cityId}")
-    @PreAuthorize("hasAuthority('READ:HOTELS')")
+   // @PreAuthorize("hasAuthority('READ:HOTELS')")
     public ResponseEntity getHotelsByCity(@PathVariable Integer cityId) {
         return ResponseEntity.ok(hotelService.getAllByCity(cityId));
     }

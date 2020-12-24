@@ -44,13 +44,12 @@ public class Hotel extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "hotel_id", referencedColumnName = "id"))
     private Set<Facility> facilities;
 
-    @JsonIgnore
     @Transient
-    private byte[] image;
+    private String image;
 
     @PostLoad
     public void imageInitialization() throws IOException {
         File file = new File("src/main/java/com/spring/hotelservice/files/hotelimages/" + imageName);
-        image = Base64.getEncoder().encode(FileUtils.readFileToByteArray(file));
+        image = Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file));
     }
 }
