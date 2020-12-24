@@ -1,10 +1,12 @@
 package com.spring.hotelservice.rest;
 
 import com.spring.hotelservice.dto.auth.AuthenticationRequestDTO;
+import com.spring.hotelservice.dto.signin.SignInRequestDTO;
+import com.spring.hotelservice.exception.UsernameAlreadyExists;
 import com.spring.hotelservice.model.User;
 import com.spring.hotelservice.repository.UserRepository;
 import com.spring.hotelservice.security.jwt.JwtTokenProvider;
-import org.springframework.http.HttpHeaders;
+import com.spring.hotelservice.service.SignInService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,12 +33,14 @@ public class AuthController {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final SignInService signInService;
 
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, PasswordEncoder passwordEncoder, SignInService signInService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.passwordEncoder = passwordEncoder;
+        this.signInService = signInService;
     }
 
     @PostMapping("/login")
@@ -47,12 +51,39 @@ public class AuthController {
             String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().getRole());
             Map<Object, Object> response = new HashMap<>();
             response.put("username", user.getUsername());
+            response.put("firstname", user.getFirstname());
+            response.put("lastname", user.getLastname());
             response.put("token", token);
 
-            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, "cook").body(response);
+            return ResponseEntity.ok().body(response);
 
         } catch (AuthenticationException e) {
             Map<Object, Object> response = new HashMap<>();
+            response.put("message", "Username login or password incorrect");
+            return new ResponseEntity(response, HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity signIn(@RequestBody SignInRequestDTO request) {
+        try {
+            User user = signInService.signIn(
+                    request.getUsername(),
+                    request.getPassword(),
+                    request.getFirstname(),
+                    request.getLastname()
+            );
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().getRole());
+            Map<Object, Object> response = new HashMap<>();
+            response.put("username", user.getUsername());
+            response.put("firstname", user.getFirstname());
+            response.put("lastname", user.getLastname());
+            response.put("token", token);
+            return ResponseEntity.ok(user);
+        } catch (UsernameAlreadyExists e) {
+            Map<Object, Object> response = new HashMap<>();
+            response.put("message", "Username already exists");
             return new ResponseEntity(response, HttpStatus.FORBIDDEN);
         }
     }
