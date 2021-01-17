@@ -1,5 +1,6 @@
 package com.spring.hotelservice.service;
 
+import com.google.common.collect.Sets;
 import com.spring.hotelservice.model.Hotel;
 import com.spring.hotelservice.repository.CityRepository;
 import com.spring.hotelservice.repository.HotelRepository;
@@ -29,8 +30,7 @@ public class HotelService {
         return hotelRepository.findAllByCountry(countryId);
     }
 
-    public List<Hotel> getAllByFacilities(Integer ...facilityId) {
-
-        return null;
+    public List<Hotel> getAllByFacilities(Integer[] facilitiesId) {
+        return hotelRepository.findAllByFacilities(Sets.newHashSet(facilitiesId), facilitiesId.length);
     }
 }

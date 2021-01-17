@@ -40,8 +40,8 @@ public class Hotel extends BaseEntity{
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "hotels_facility",
-            joinColumns = @JoinColumn(name = "facility_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "hotel_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "hotel_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "facility_id", referencedColumnName = "id"))
     private Set<Facility> facilities;
 
     @Transient

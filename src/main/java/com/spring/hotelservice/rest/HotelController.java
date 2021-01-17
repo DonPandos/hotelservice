@@ -30,4 +30,9 @@ public class HotelController {
     public ResponseEntity getHotelsByCountry(@PathVariable Integer countryId) {
         return ResponseEntity.ok(hotelService.getAllByCountry(countryId));
     }
+
+    @GetMapping("/facilities")
+    public ResponseEntity getHotelsByFacility(@RequestParam Integer[] facilitiesId) {
+        return ResponseEntity.ok(hotelService.getAllByFacilities(facilitiesId));
+    }
 }
